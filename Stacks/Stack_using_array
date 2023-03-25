@@ -1,0 +1,85 @@
+#include <climits>
+#include<iostream>
+using namespace std;
+
+class StackUsingArray
+{
+    int * data;
+    int nextIndex;
+    int cap;
+
+    public:
+    StackUsingArray(int totalSize)
+    {
+        data=new int[totalSize];
+        nextIndex=0;
+        cap=totalSize;
+    }
+
+    /*In case of dynamic array*/
+    // StackUsingArray()
+    // {
+    //     data=new int[4];
+    //     nextIndex=0;
+    //     cap=4;
+    // }
+
+    int size()
+    {
+        return nextIndex;
+    }
+
+    bool isEmpty()
+    {
+        return nextIndex==0;
+    }
+
+    void push(int e)
+    {
+        if(nextIndex==cap)
+        {
+            cout<<"Stack full"<<endl;
+            return;
+        }
+        data[nextIndex]=e;
+        nextIndex++;
+    }
+
+    /*In case of, Dynamic Array*/
+    // void push(int e)
+    // {
+    //     if(nextIndex==cap)
+    //     {
+    //         int *newData=new int[2*cap];
+    //         for(int i=0;i<cap;i++)
+    //         {
+    //             newData[i]=data[i];
+    //         }
+    //         cap*=2;
+    //         delete [] data;
+    //     }
+    //     data[nextIndex]=e;
+    //     nextIndex++;
+    // }
+
+    int pop()
+    {
+        if(isEmpty())
+        {
+            cout<<"Stack is empty"<<endl;
+            return INT_MIN;
+        }
+        nextIndex--;
+        return data[nextIndex];
+    }
+    int top()
+    {
+        if(isEmpty())
+        {
+            cout <<"Stack is empty"<< endl;
+            return INT_MIN;
+        }
+        return data[nextIndex-1];
+    }
+
+};
