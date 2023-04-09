@@ -1,25 +1,38 @@
-//DFS - Depth First Search
+//BFS - Breadth First Search
 #include<iostream>
 using namespace std;
+#include<queue>
 
-void print(int ** edges,int n,int sv, bool* visited)
+void printBFS(int ** edges,int n,int sv)
 {
-    cout<<sv<<endl; //second vertex
-    visited[sv]=true; //vertex is visited
+    queue<int>pendingVertices;
+    bool * visited=new bool[n];
+
     for(int i=0;i<n;i++)
     {
-        if(i==sv)
-        continue;
+        visited[i]=false;
+    }
 
-        if(edges[sv][i]==1)
+    pendingVertices.push(sv);
+    visited[sv]=true;
+    while(!pendingVertices.empty())
+    {
+        int currVertex=pendingVertices.front();
+        pendingVertices.pop();
+        cout<<currVertex<<endl;
+        for(int i=0;i<n;i++)
         {
-            if(visited[i])
+            if(i==currVertex)
             continue;
 
-            print(edges,n,i,visited);
+            if(edges[currVertex][i]==1 && !visited[i])
+            {
+                pendingVertices.push(i);
+                visited[i]=true;
+            }
         }
-
     }
+delete []visited;
 }
 
 int main()
@@ -53,7 +66,8 @@ int main()
     {
         visited[i]=false;
     }
-    print(edges,n,0,visited);
+
+    printBFS(edges,n,0);
 
     //delete all the memory
     delete []visited;
@@ -66,17 +80,23 @@ int main()
 
 /*
 I/P:
-4
-3
+7
+8
+0 1
 0 2
-2 1
 1 3
+1 4
+3 5
+4 5
+2 6
+5 6
 
 O/P:
 0
-2
 1
+2
 3
+4
+6
+5
 */
-
-
